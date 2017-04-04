@@ -1,13 +1,9 @@
 language: ruby
 rvm:
   - 2.3.0
-  - jruby
-
 env:
   - DB=postgresql
 script:
-  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - export RAILS_ENV=test
+  - bundle exec rake db:create db:migrate
   - bundle exec rake db:test:prepare
-  - bundle exec rspec spec/
-before_script:
-  - psql -c 'create database rails-travis-app_test' -U postgres
